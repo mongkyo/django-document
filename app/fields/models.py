@@ -7,11 +7,20 @@ class Person(models.Model):
         ('M', 'Medium'),
         ('L', 'Large'),
     )
-    name = models.CharField(max_length=60)
-    shirt_size = models.CharField(max_length=1, choices=SHIRT_SIZE)
-    # age1 관리자 페이지에서 빈값을 허용하지만 DB에서 빈 값을 허용하지 않음
-    age1 = models.IntegerField(blank=True)
-    # age2 는 DB에는 빈값을 허용하지만 관리자 페이지에서 빈 값을 허용하지 않음
-    age2 = models.IntegerField(null=True)
+    name = models.CharField('이름', max_length=60)
+    shirt_size = models.CharField(
+        '셔츠 사이즈',
+        max_length=1,
+        choices=SHIRT_SIZE,
+        help_text='S,M,L 중에 선택'
+    )
     # 둘다 허용, 빈 값을 넣어도 이상없이 작동한다
-    age3 = models.IntegerField(blank=True, null=True)
+    age = models.IntegerField('나이', blank=True, null=True)
+    stars = models.IntegerField('좋아요', default=0)
+    nickname = models.CharField(
+        '닉네임',
+        max_length=50,
+        unique=True,
+        blank=True,
+        null=True,
+    )
