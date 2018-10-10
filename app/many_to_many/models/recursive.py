@@ -12,4 +12,11 @@ class FacebookUser(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        """
+        이한영 (친구: a,b,c)
+        QuerySet순회 및 문자열 포매팅
+        :return:
+        """
+        friend_list = self.friends.all()
+        friend_list_str = ', '.join([friend.name for friend in friend_list])
+        return f'{self.name} (친구: {friend_list_str}'
