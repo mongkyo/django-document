@@ -160,7 +160,7 @@ class Relation(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
-    # 중복을 없앤다
+    # 중복을 없앤다, 이미 존재하면 새로 만들수 없게 만든다
     class Meta:
         unique_together = (
             ('from_user', 'to_user'),
