@@ -10,6 +10,8 @@ __all__ = (
     'CommonInfo',
     'Student',
 )
+
+
 class CommonInfo(models.Model):
     name = models.CharField(max_length=100, db_index=True)
     age = models.PositiveIntegerField()
