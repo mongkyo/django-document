@@ -52,8 +52,7 @@ class TwitterUser(models.Model):
             from_user_relation__to_user=self,
             from_user_relation__relation_type='f',
         )
-        # followers_user_queryset = [relations for relations in self.relation_by_to_user.filter(relation_type='f')]
-        # return followers_user_queryset
+
 
     @property
     def following(self):
@@ -64,8 +63,7 @@ class TwitterUser(models.Model):
             from_user_relation__from_user=self,
             from_user_relation__relation_type='f',
         )
-        # following_user_queryset = [relations for relations in self.relation_by_from_user.filter(relation_type='f')]
-        # return following_user_queryset
+
 
     @property
     def block_list(self):
@@ -73,8 +71,6 @@ class TwitterUser(models.Model):
 
         return: 내가 block하는 다른 TwitterUser QuerySet
         """
-        # block_user_queryset = [relations for relations in self.relation_by_from_user.filter(relation_type='b')]
-        # return block_user_queryset
 
         return TwitterUser.objects.filter(
             from_user_relation__from_user=self,

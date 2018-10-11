@@ -13,6 +13,7 @@ class Restaurant(models.Model):
     place = models.OneToOneField(
         Place,
         on_delete=models.CASCADE,
+        # Place 의 기본키(primary_key를 일방적으로 따라 쓴다)
         primary_key=True,
     )
     serves_hot_dogs = models.BooleanField(default=False)
