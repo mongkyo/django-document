@@ -122,14 +122,14 @@ class TwitterUser(models.Model):
         """
         :return: 나를 follow하는 Relation QuerySet
         """
-        return
+        return self.to_user_relations.filter(relations_type='f')
 
     @property
     def followee_relations(self):
         """
         :return: 내가 follow하는 Relation QuerySet
         """
-        return
+        return self.from_user_relations.filter(relations_type='f')
 
 
 class Relation(models.Model):
@@ -141,6 +141,7 @@ class Relation(models.Model):
         TwitterUser,
         on_delete=models.CASCADE,
         related_name='from_user_relations',
+        # related_query_name의 기본값
         # 기본값:
         #  이 모델 클래스명의 소문자화
         # related_name이 지정되어 있을 경우:
@@ -150,9 +151,7 @@ class Relation(models.Model):
     to_user = models.ForeignKey(
         TwitterUser,
         on_delete=models.CASCADE,
-
         related_name='to_user_relations',
-
         related_query_name='to_user_relation',
     )
     relation_type = models.CharField(
@@ -160,3 +159,9 @@ class Relation(models.Model):
         max_length=1,
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    # 중복을 없앤다
+    class Meta:
+        unique_together = (
+            ('from_user', 'to_user'),
+        )
