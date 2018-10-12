@@ -60,8 +60,8 @@ class TwitterUser(models.Model):
         :return: 내가 follow하는 다른 TwitterUser QuerySet
         """
         return TwitterUser.objects.filter(
-            from_user_relation__from_user=self,
-            from_user_relation__relation_type='f',
+            to_user_relation__from_user=self,
+            to_user_relation__relation_type='f',
         )
 
 
@@ -73,8 +73,8 @@ class TwitterUser(models.Model):
         """
 
         return TwitterUser.objects.filter(
-            from_user_relation__from_user=self,
-            from_user_relation__relation_type='b',
+            to_user_relation__from_user=self,
+            to_user_relation__relation_type='b',
         )
 
     def follow(self, user):
@@ -90,7 +90,7 @@ class TwitterUser(models.Model):
                 to_user=user,
                 relation_type='f',
             )
-        return self.from_user_relations.get(to_user=user), created
+        return self.from_user_relations.get(to_user=user)
 
     def block(self, user):
         """
